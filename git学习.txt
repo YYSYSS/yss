@@ -1,0 +1,139 @@
+一,创建版本库,添加提交
+	git init			
+	--注释：把当前目录变成Git可以管理的仓库：
+	git add 文件名1 文件名2         
+	--注释： 可反复多次使用，添加多个文件,新文件必须add加入托管,
+	git commit -m "提交说明"   
+	--注释：-a属性提交所有修改,但不能提交未add的新文件
+	git rm  文件名 
+	--注释：删除一个文件,可用git restore  恢复文件到最新版本，会丢失最近一次提交后你修改的内容。
+二,版本回退
+	git status      
+	yss:查看git仓库状态,如修改了哪些文件
+	git diff      
+	yss:查看修改的具体内容
+	git log      
+	yss:显示从最近到最远的提交日志,以便确定要回退到哪个版本
+	git reflog
+	yss:显示从最近到最远记录你的每一次命令,以便获得commit id(版本号);
+	git reset --hard HEAD^
+	yss:回退到上一个版本window CMD中 ^为转义,所以应输入HEAD^^
+	git reset --hard HEAD^^
+	yss:回退到上上一个版本
+	git reset --hard HEAD~2
+	yss:回退到上上一个版本
+	git reset --hard 2333
+	yss:回退到指定的版本(2333),版本号没必要写全(至少四位);
+
+三,工作区和暂存区
+	Git管理的文件分为：工作区，版本库，版本库又分为暂存区stage和暂存区分支master(仓库)
+
+	工作区>>>>暂存区>>>>仓库
+
+	git add把文件从工作区>>>>暂存区，git commit把文件从暂存区>>>>仓库，
+
+	git diff查看工作区和暂存区差异，
+
+	git diff --cached查看暂存区和仓库差异，
+
+	git diff HEAD 查看工作区和仓库的差异，
+
+	git add的反向命令git checkout，撤销工作区修改，即把暂存区最新版本转移到工作区,如果暂存区为空(commit),则从版本库转移
+		git checkout -- file命令中的--很重要，没有--，就变成了“切换到另一个分支”的命令
+	git commit的反向命令git reset HEAD，就是把仓库最新版本转移到暂存区。
+
+	git restore  文件名 将仓库最新版本推送到工作区 (相当于git reset HEAD 文件名 + git checkout 文件名)
+
+四,文件删除
+	git rm file并且git commit并不是删除了版本库里的某个版本号，而是对工作目录下的删除操作进行了一个记录，
+	会在仓库里生成一个新的版本号，在该版本下没有该文件。
+	但是可以用git reset --hard commit_id进行版本回退，回退到有这个文件的版本号。
+	而git checkout commit_id file命令是从含有该文件的旧版本号里把该文件拿出来，放到现版本里，版本号不改变。
+
+五,SSH Key
+	1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，
+	可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+		ssh-keygen -t rsa -C "邮箱地址" 
+	你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。
+	如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，
+	id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+	第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：
+	然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：
+
+六,连接远程仓库
+	git remote add origin git@github.com:YYSYSS/yssgit.git  
+		出现fatal: remote origin already exists. 把origin改为其他值 或 git remote rm origin删除已有的origin
+	关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+	此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+
+
+
+
+
+
+
+
+
+git中文显示
+git config --global i18n.commitencoding utf-8  --注释：该命令表示提交命令的时候使用utf-8编码集提交
+
+git config --global i18n.logoutputencoding utf-8 --注释：该命令表示日志输出时使用utf-8编码集显示
+
+export LESSCHARSET=utf-8  --注释 linux bash配置环境变量
+
+set LESSCHARSET=utf-8  --注释：windows配置环境变量
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
